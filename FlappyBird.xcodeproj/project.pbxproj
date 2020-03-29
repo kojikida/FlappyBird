@@ -13,6 +13,7 @@
 		9BB528BA242AB1F200303EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB528B8242AB1F200303EDF /* Main.storyboard */; };
 		9BB528BC242AB1F500303EDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BB528BB242AB1F500303EDF /* Assets.xcassets */; };
 		9BB528BF242AB1F500303EDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB528BD242AB1F500303EDF /* LaunchScreen.storyboard */; };
+		9BE6C73D242D58CA00F2A464 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE6C73C242D58CA00F2A464 /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9BB528BB242AB1F500303EDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BB528BE242AB1F500303EDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BB528C0242AB1F500303EDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BE6C73C242D58CA00F2A464 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				9BB528BB242AB1F500303EDF /* Assets.xcassets */,
 				9BB528BD242AB1F500303EDF /* LaunchScreen.storyboard */,
 				9BB528C0242AB1F500303EDF /* Info.plist */,
+				9BE6C73C242D58CA00F2A464 /* GameScene.swift */,
 			);
 			path = FlappyBird;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			files = (
 				9BB528B7242AB1F200303EDF /* ViewController.swift in Sources */,
 				9BB528B3242AB1F200303EDF /* AppDelegate.swift in Sources */,
+				9BE6C73D242D58CA00F2A464 /* GameScene.swift in Sources */,
 				9BB528B5242AB1F200303EDF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 32KR746PFZ;
 				INFOPLIST_FILE = FlappyBird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -293,7 +298,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.koji.kida.FlappyBird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,6 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 32KR746PFZ;
 				INFOPLIST_FILE = FlappyBird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,7 +316,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.koji.kida.FlappyBird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
