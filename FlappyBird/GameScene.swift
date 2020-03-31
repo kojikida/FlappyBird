@@ -256,18 +256,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //鳥の画像サイズを取得
         let birdSize = SKTexture(imageNamed: "bird_a").size()
-
-        //鳥のサイズの１倍とする
-        let item_length = birdSize.height * 1
         
-        //アイテムの上下の振れ幅を鳥のサイズの20倍とする
-        let random_y_range = birdSize.height * 20
+        //アイテムの上下の振れ幅を鳥のサイズの3倍とする
+        let random_y_range = birdSize.height * 3
         
-        //アイテムのY軸下限位置を計算する
+        //地面上部から空上部までの間のセンターの位置を決定する
         let groundSize = SKTexture(imageNamed: "ground").size()
         let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
-        let under_item_lowest_y = center_y - item_length / 2 - itemTexture.size().height / 2 - random_y_range / 2
-        
+
         //アイテムを生成するアクションを作成
         let createItemAnimation = SKAction.run({
             //アイテム関連のノードを乗せるノードを作成する
@@ -275,28 +271,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             item.position = CGPoint(x: self.frame.size.width + itemTexture.size().width / 2, y: 0)
             item.zPosition = -40// 雲より手前、地面より奥、壁よりも手前
             
-            //0からrandom_y_rangeまでのランダム値を生成
-            let random_y = CGFloat.random(in: 0..<random_y_range)
+            //ーrandom_y_rangeから＋random_y_rangeまで変化するランダム値を生成
+            let random_y = CGFloat.random(in: -random_y_range...random_y_range)
             //Y軸の下限にランダムな値を足して、下の壁のY軸座標を決定
-            let under_item_y = under_item_lowest_y + random_y
+            let random_item_y = center_y + random_y
+            //let under_item_y = under_item_lowest_y + random_y
             
-            //下限のアイテムを作成
-            let underItem = SKSpriteNode(texture: itemTexture)
-            underItem.position = CGPoint(x: 0, y: under_item_y)
-            underItem.xScale = 0.4
-            underItem.yScale = 0.4
+            //ランダムに出現するアイテムを作成
+            let randomItem = SKSpriteNode(texture: itemTexture)
+            randomItem.position = CGPoint(x: 0, y: random_item_y)
+            randomItem.xScale = 0.4
+            randomItem.yScale = 0.4
             
-            item.addChild(underItem)
+            item.addChild(randomItem)
             
             //アイテムスコア用のノード
             let itemNode = SKNode()
         
-            let upperItem = SKSpriteNode(texture: itemTexture)
-            itemNode.position = CGPoint(x: upperItem.size.width + birdSize.width / 2, y:self.frame.height / 2)
-            itemNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upperItem.size.width, height: self.frame.size.height))
-            itemNode.physicsBody?.isDynamic = false
-            itemNode.physicsBody?.categoryBitMask = self.itemCategory
-            itemNode.physicsBody?.contactTestBitMask = self.birdCategory
+            //let upperItem = SKSpriteNode(texture: itemTexture)
+            //itemNode.position = CGPoint(x: upperItem.size.width + birdSize.width / 2, y:self.frame.height / 2)
+            //itemNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upperItem.size.width, height: self.frame.size.height))
+            //itemNode.physicsBody?.isDynamic = false
+            //itemNode.physicsBody?.categoryBitMask = self.itemCategory
+            //itemNode.physicsBody?.contactTestBitMask = self.birdCategory
         
             item.addChild(itemNode)
             
