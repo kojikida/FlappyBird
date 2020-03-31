@@ -13,12 +13,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scrollNode:SKNode!
     var wallNode:SKNode!
     var bird:SKSpriteNode!
+    var itemNode:SKNode!
     
     //衝突判定カテゴリー
     let birdCategory: UInt32 = 1 << 0 //0...0.00001
     let groundCategory: UInt32 = 1 << 1 //0...00010
     let wallCategory: UInt32 = 1 << 2 //0...00100
     let scoreCategory: UInt32 = 1 << 3 //0...01000
+    let itemCategory: UInt32 = 1 << 3 //0...01000
     
     //スコア用
     var score = 0
@@ -43,12 +45,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //壁用ノード
         wallNode = SKNode()
         scrollNode.addChild(wallNode)
+        
+        //アイテム用ノード
+        itemNode = SKNode()
+        scrollNode.addChild(itemNode)
                 
         //各種のスプライトを生成する処理
         setupGround()
         setupCloud()
         setupWall()
         setupBird()
+        setupItem()
         
         setupScoreLabel()
         
@@ -147,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //画面外まで移動するアクションを作成
         let moveWall = SKAction.moveBy(x: -movingDistance, y: 0, duration: 4)
         
-        //地震を取り除くアクションを作成
+        //自身を取り除くアクションを作成
         let removeWall = SKAction.removeFromParent()
         
         //2つのアニメーションを順に実行するアクションを作成する
@@ -227,6 +234,85 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createWallAnimation, waitAnimation]))
         
         wallNode.run(repeatForeverAnimation)
+        
+    }
+    
+    func setupItem() {
+        //アイテム用の画像を取り込む
+        let itemTexture = SKTexture(imageNamed: "item")
+        itemTexture.filteringMode = .linear
+        
+        //移動する距離を計算する
+        let movingDistanceItem = CGFloat(self.frame.size.width + itemTexture.size().width)
+        
+        //画面外まで移動するアクションを作成
+        let moveItem = SKAction.moveBy(x: -movingDistanceItem, y: 0, duration: 4)
+        
+        //自身を取り除くアクション
+        let removeItem = SKAction.removeFromParent()
+        
+        //2つのアニメーションを順に実行するアクションを作成する
+        let itemAnimation = SKAction.sequence([moveItem, removeItem])
+        
+        //鳥の画像サイズを取得
+        let birdSize = SKTexture(imageNamed: "bird_a").size()
+
+        //鳥のサイズの１倍とする
+        let item_length = birdSize.height * 1
+        
+        //アイテムの上下の振れ幅を鳥のサイズの20倍とする
+        let random_y_range = birdSize.height * 20
+        
+        //アイテムのY軸下限位置を計算する
+        let groundSize = SKTexture(imageNamed: "ground").size()
+        let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
+        let under_item_lowest_y = center_y - item_length / 2 - itemTexture.size().height / 2 - random_y_range / 2
+        
+        //アイテムを生成するアクションを作成
+        let createItemAnimation = SKAction.run({
+            //アイテム関連のノードを乗せるノードを作成する
+            let item = SKNode()
+            item.position = CGPoint(x: self.frame.size.width + itemTexture.size().width / 2, y: 0)
+            item.zPosition = -40// 雲より手前、地面より奥、壁よりも手前
+            
+            //0からrandom_y_rangeまでのランダム値を生成
+            let random_y = CGFloat.random(in: 0..<random_y_range)
+            //Y軸の下限にランダムな値を足して、下の壁のY軸座標を決定
+            let under_item_y = under_item_lowest_y + random_y
+            
+            //下限のアイテムを作成
+            let underItem = SKSpriteNode(texture: itemTexture)
+            underItem.position = CGPoint(x: 0, y: under_item_y)
+            underItem.xScale = 0.4
+            underItem.yScale = 0.4
+            
+            item.addChild(underItem)
+            
+            //アイテムスコア用のノード
+            let itemNode = SKNode()
+        
+            let upperItem = SKSpriteNode(texture: itemTexture)
+            itemNode.position = CGPoint(x: upperItem.size.width + birdSize.width / 2, y:self.frame.height / 2)
+            itemNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upperItem.size.width, height: self.frame.size.height))
+            itemNode.physicsBody?.isDynamic = false
+            itemNode.physicsBody?.categoryBitMask = self.itemCategory
+            itemNode.physicsBody?.contactTestBitMask = self.birdCategory
+        
+            item.addChild(itemNode)
+            
+            item.run(itemAnimation)
+            
+            self.itemNode.addChild(item)
+            
+        })
+        
+        //次のアイテム作成までの時間待ちのアクションを作成
+        let waitAnimation = SKAction.wait(forDuration: 2)
+        
+        //アイテムを作成->時間待ち->アイテム作成を無限に繰り返すアクションを作成
+        let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createItemAnimation, waitAnimation]))
+        
+        itemNode.run(repeatForeverAnimation)
         
     }
     
