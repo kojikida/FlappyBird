@@ -291,18 +291,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             item.addChild(randomItem)
             
-            //アイテムスコア用のノード
-            let itemNode = SKNode()
-        
-            //let upperItem = SKSpriteNode(texture: itemTexture)
-            //itemNode.position = CGPoint(x: upperItem.size.width + birdSize.width / 2, y:self.frame.height / 2)
-            //itemNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upperItem.size.width, height: self.frame.size.height))
-            //itemNode.physicsBody?.isDynamic = false
-            //itemNode.physicsBody?.categoryBitMask = self.itemCategory
-            //itemNode.physicsBody?.contactTestBitMask = self.birdCategory
-        
-            item.addChild(itemNode)
-            
             item.run(itemAnimation)
             
             self.itemNode.addChild(item)
@@ -310,7 +298,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
         
         //次のアイテム作成までの時間待ちのアクションを作成
-        let waitAnimation = SKAction.wait(forDuration: 2)
+        let waitAnimation = SKAction.wait(forDuration: 3)
         
         //アイテムを作成->時間待ち->アイテム作成を無限に繰り返すアクションを作成
         let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createItemAnimation, waitAnimation]))
