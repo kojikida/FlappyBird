@@ -28,6 +28,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bestScoreLabelNode:SKLabelNode!
     let userDefaults:UserDefaults = UserDefaults.standard
     
+    //アイテムスコア用
+    var itemScore = 0
+    var itemScoreLabelNode:SKLabelNode!
+    
     //SKView上にシーンが表示された時に呼ばれるメソッド
     override func didMove(to view: SKView) {
         
@@ -58,6 +62,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupItem()
         
         setupScoreLabel()
+        setupItemScoreLabel()
+        
         
     }
     
@@ -434,5 +440,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bestScoreLabelNode.text = "Best Score:\(bestScore)"
         self.addChild(bestScoreLabelNode)
     }
+    func setupItemScoreLabel() {
+        itemScore = 0
+        itemScoreLabelNode = SKLabelNode()
+        itemScoreLabelNode.fontColor = UIColor.blue
+        itemScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 120)
+        itemScoreLabelNode.zPosition = 100 //一番手前に表示する
+        itemScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        itemScoreLabelNode.text = "Item Score:\(itemScore)"
+        self.addChild(itemScoreLabelNode)
+    }
     
 }
+
