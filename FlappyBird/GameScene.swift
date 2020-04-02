@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let groundCategory: UInt32 = 1 << 1 //0...00010
     let wallCategory: UInt32 = 1 << 2 //0...00100
     let scoreCategory: UInt32 = 1 << 3 //0...01000
-    let itemCategory: UInt32 = 1 << 3 //0...01000
+    let itemCategory: UInt32 = 1 << 4 //0...10000
     
     //スコア用
     var score = 0
@@ -286,11 +286,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //ランダムに出現するアイテムを作成
             let randomItem = SKSpriteNode(texture: itemTexture)
             randomItem.position = CGPoint(x: 0, y: random_item_y)
-            randomItem.xScale = 0.4
-            randomItem.yScale = 0.4
+            
+            
+            randomItem.physicsBody = SKPhysicsBody(rectangleOf: itemTexture.size())
+            randomItem.physicsBody?.categoryBitMask = self.wallCategory
+            
+            //衝突時に動かないようにする
+            randomItem.physicsBody?.isDynamic = false
+            
+            randomItem.physicsBody?.categoryBitMask = self.itemCategory
+            randomItem.physicsBody?.contactTestBitMask = self.birdCategory
             
             item.addChild(randomItem)
-            
+                        
             item.run(itemAnimation)
             
             self.itemNode.addChild(item)
@@ -356,6 +364,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //SKPhysicsContactDelegateのメソッド。衝突した時に呼ばれる
     func didBegin(_ contact: SKPhysicsContact) {
+        
         //ゲームオーバーの時には何もしない
         if scrollNode.speed <= 0 {
             return
@@ -374,6 +383,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bestScoreLabelNode.text = "Best Score:\(bestScore)"
                 userDefaults.set(bestScore, forKey: "BEST")
                 userDefaults.synchronize()
+            }
+        } else if (contact.bodyA.categoryBitMask & itemCategory) == itemCategory || (contact.bodyB.categoryBitMask & itemCategory) == itemCategory {
+            //アイテムの物体と衝突した時のアイテムスコアのアップ
+            print("ItemScoreUp")
+            itemScore += 1
+            itemScoreLabelNode.text = "Item Score:\(itemScore)"
+            
+            //衝突した物体を消す
+                if (contact.bodyA.categoryBitMask & itemCategory) == itemCategory {
+                    itemNode.removeFromParent()
+                } else if (contact.bodyB.categoryBitMask & itemCategory) == itemCategory {
+                    itemNode.removeFromParent()
             }
             
         } else {
@@ -397,12 +418,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         scoreLabelNode.text = "Score:\(score)"
         
+        itemScore = 0
+        itemScoreLabelNode.text = "Item Score:\(itemScore)"
+        
         bird.position = CGPoint(x: self.frame.size.width * 0.2, y: self.frame.size.height * 0.7)
         bird.physicsBody?.velocity = CGVector.zero
         bird.physicsBody?.collisionBitMask = groundCategory | wallCategory
         bird.zRotation = 0
         
         wallNode.removeAllChildren()
+        itemNode.removeAllChildren()
         
         bird.speed = 1
         scrollNode.speed = 1
@@ -440,4 +465,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 }
+
+
 
