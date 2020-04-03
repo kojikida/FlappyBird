@@ -20,7 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player:AVAudioPlayer!
     
     //効果音
-    let itemSound = SKAction.playSoundFileNamed("coin.mp3", waitForCompletion: true)
+    let itemSound = SKAction.playSoundFileNamed("coin.mp3", waitForCompletion: false)
+    let wallSound = SKAction.playSoundFileNamed("bomb.mp3", waitForCompletion: false)
     
     //衝突判定カテゴリー
     let birdCategory: UInt32 = 1 << 0 //0...0.00001
@@ -396,7 +397,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("ItemScoreUp")
             itemScore += 1
             itemScoreLabelNode.text = "Item Score:\(itemScore)"
-            run(itemSound)
+            self.run(itemSound)
             
             //衝突した物体を消す
                 if (contact.bodyA.categoryBitMask & itemCategory) == itemCategory {
@@ -408,9 +409,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
+            
         } else {
             //壁か地面と衝突した時
             print("GameOver")
+            self.run(wallSound)
             
             //スクロールを停止させる
             scrollNode.speed = 0
