@@ -17,9 +17,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bird:SKSpriteNode!
     var itemNode:SKNode!
     
+    var backgroundMusic = SKAudioNode()
     var player:AVAudioPlayer!
     
-    //効果音
+    //BGM/効果音
+    let bgm = SKAction.playSoundFileNamed("bgm.mp3", waitForCompletion: false)
     let itemSound = SKAction.playSoundFileNamed("coin.mp3", waitForCompletion: false)
     let wallSound = SKAction.playSoundFileNamed("bomb.mp3", waitForCompletion: false)
     
@@ -42,6 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //SKView上にシーンが表示された時に呼ばれるメソッド
     override func didMove(to view: SKView) {
+        
+        //BGM用の音楽をセットする
+        backgroundMusic = SKAudioNode(fileNamed: "bgm.mp3")
+        addChild(backgroundMusic)
         
         //重力を設定
         physicsWorld.gravity = CGVector(dx: 0, dy: -4)

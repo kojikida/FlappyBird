@@ -15,6 +15,7 @@
 		9BB528BF242AB1F500303EDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB528BD242AB1F500303EDF /* LaunchScreen.storyboard */; };
 		9BDA4EE324372F6400A6D2F7 /* coin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BDA4EE224372F6300A6D2F7 /* coin.mp3 */; };
 		9BDA4EE52437309300A6D2F7 /* bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BDA4EE42437309300A6D2F7 /* bomb.mp3 */; };
+		9BDA4EE7243732C500A6D2F7 /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BDA4EE6243732C500A6D2F7 /* bgm.mp3 */; };
 		9BE6C73D242D58CA00F2A464 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE6C73C242D58CA00F2A464 /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		9BB528C0242AB1F500303EDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BDA4EE224372F6300A6D2F7 /* coin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin.mp3; sourceTree = "<group>"; };
 		9BDA4EE42437309300A6D2F7 /* bomb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb.mp3; sourceTree = "<group>"; };
+		9BDA4EE6243732C500A6D2F7 /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		9BE6C73C242D58CA00F2A464 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 				9BB528BB242AB1F500303EDF /* Assets.xcassets */,
 				9BB528BD242AB1F500303EDF /* LaunchScreen.storyboard */,
 				9BB528C0242AB1F500303EDF /* Info.plist */,
+				9BDA4EE6243732C500A6D2F7 /* bgm.mp3 */,
 				9BDA4EE42437309300A6D2F7 /* bomb.mp3 */,
 				9BDA4EE224372F6300A6D2F7 /* coin.mp3 */,
 				9BE6C73C242D58CA00F2A464 /* GameScene.swift */,
@@ -137,6 +140,7 @@
 				9BB528BF242AB1F500303EDF /* LaunchScreen.storyboard in Resources */,
 				9BDA4EE52437309300A6D2F7 /* bomb.mp3 in Resources */,
 				9BB528BC242AB1F500303EDF /* Assets.xcassets in Resources */,
+				9BDA4EE7243732C500A6D2F7 /* bgm.mp3 in Resources */,
 				9BB528BA242AB1F200303EDF /* Main.storyboard in Resources */,
 				9BDA4EE324372F6400A6D2F7 /* coin.mp3 in Resources */,
 			);
