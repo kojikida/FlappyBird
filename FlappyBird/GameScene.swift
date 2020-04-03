@@ -7,6 +7,8 @@
 //
 
 import SpriteKit
+import AVFoundation
+import Foundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -14,6 +16,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var wallNode:SKNode!
     var bird:SKSpriteNode!
     var itemNode:SKNode!
+    
+    var player:AVAudioPlayer!
+    
+    //効果音
+    let itemSound = SKAction.playSoundFileNamed("coin.mp3", waitForCompletion: true)
     
     //衝突判定カテゴリー
     let birdCategory: UInt32 = 1 << 0 //0...0.00001
@@ -389,12 +396,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("ItemScoreUp")
             itemScore += 1
             itemScoreLabelNode.text = "Item Score:\(itemScore)"
+            run(itemSound)
             
             //衝突した物体を消す
                 if (contact.bodyA.categoryBitMask & itemCategory) == itemCategory {
-                    itemNode.removeFromParent()
+                    contact.bodyA.node?.removeFromParent()
+                   
+                    
                 } else if (contact.bodyB.categoryBitMask & itemCategory) == itemCategory {
-                    itemNode.removeFromParent()
+                    contact.bodyB.node?.removeFromParent()
+                
             }
             
         } else {
