@@ -462,7 +462,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundMusic = SKAudioNode(fileNamed: "bgm.mp3")
         addChild(backgroundMusic)
         
-        
     }
     
     func setupScoreLabel() {
@@ -485,6 +484,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bestScoreLabelNode.text = "Best Score:\(bestScore)"
         self.addChild(bestScoreLabelNode)
     }
+    
     func setupItemScoreLabel() {
         itemScore = 0
         itemScoreLabelNode = SKLabelNode()
