@@ -421,6 +421,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("GameOver")
             self.run(wallSound)
             
+            //BGMを止める
+            let stopAction = SKAction.stop()
+            backgroundMusic.run(stopAction)
+            
             //スクロールを停止させる
             scrollNode.speed = 0
             
@@ -430,9 +434,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bird.run(roll, completion: {
                 self.bird.speed = 0
             })
-        }
             
+        }
+
     }
+    
     
     func restart() {
         score = 0
@@ -451,6 +457,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         bird.speed = 1
         scrollNode.speed = 1
+        
+        //BGMを再スタートさせる
+        backgroundMusic = SKAudioNode(fileNamed: "bgm.mp3")
+        addChild(backgroundMusic)
+        
+        
     }
     
     func setupScoreLabel() {
